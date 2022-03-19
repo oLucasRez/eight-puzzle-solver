@@ -1,7 +1,7 @@
 // -------------------------------------------------------------------< classes
-import { Puzzle } from './classes';
+import { EightPuzzle } from './classes';
 // ======================================================================< main
-const puzzle = new Puzzle(
+const eightPuzzle = new EightPuzzle(
   [
     [' ', '1', '2'],
     ['4', '5', '6'],
@@ -10,4 +10,4 @@ const puzzle = new Puzzle(
   ' '
 );
 
-puzzle.resolve();
+eightPuzzle.resolve();

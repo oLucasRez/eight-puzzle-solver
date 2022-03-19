@@ -6,7 +6,6 @@ import {
   delay,
   stringfy,
   getRandom,
-  includes,
   remove,
 } from '../utils';
 // -----------------------------------------------------------------< constants
@@ -15,7 +14,7 @@ import { infinity } from '../constants';
 import { Snapshot, Vector } from '../types';
 import { distanceBetween } from '../utils/distance-between';
 // ============================================================================
-export class Puzzle<ValueType> {
+export class EightPuzzle<ValueType> {
   private start: Snapshot<ValueType>;
 
   private width: number;

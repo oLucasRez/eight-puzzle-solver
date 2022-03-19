@@ -1,10 +1,10 @@
 // -------------------------------------------------------------------< classes
 import { Dict } from '../classes';
+import { Heap } from '../classes/heap';
 // ---------------------------------------------------------------------< utils
 import { equals, has } from '../utils';
 // -----------------------------------------------------------------< constants
 import { infinity } from '../constants';
-import { Heap } from '../classes/heap';
 // ============================================================================
 function buildPath<NodeType>(
   cameFrom: Dict<NodeType, NodeType>,

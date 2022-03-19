@@ -1,2 +1,2 @@
 export { Dict } from './dict';
-export { Puzzle } from './puzzle';
+export { EightPuzzle } from './eight-puzzle';
