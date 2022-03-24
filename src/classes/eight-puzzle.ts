@@ -7,12 +7,12 @@ import {
   stringfy,
   getRandom,
   remove,
+  distanceBetween,
 } from '../utils';
 // -----------------------------------------------------------------< constants
 import { infinity } from '../constants';
 // ---------------------------------------------------------------------< types
 import { Snapshot, Vector } from '../types';
-import { distanceBetween } from '../utils/distance-between';
 // ============================================================================
 export class EightPuzzle<ValueType> {
   private start: Snapshot<ValueType>;
@@ -35,8 +35,6 @@ export class EightPuzzle<ValueType> {
   }
 
   public shuffle(snapshot: Snapshot<ValueType>) {
-    const { width, height } = this;
-
     let cameFrom = snapshot;
     let current = snapshot;
 
@@ -155,5 +153,14 @@ export class EightPuzzle<ValueType> {
     callback: (value: ValueType, coords: [number, number]) => any
   ) {
     snapshot.map((row, x) => row.map((value, y) => callback(value, [x, y])));
+  }
+
+  private calcCost() {
+    const two = 4;
+    const three = (this.height - 2) * 2 + (this.width - 2) * 2;
+    const four = (this.height - 2) * (this.width - 2);
+    const breadth = (2 * two + 3 * three + 4 * four) / (two + three + four);
+
+    console.log(breadth);
   }
 }

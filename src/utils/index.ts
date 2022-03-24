@@ -2,6 +2,7 @@ export { aStar } from './a-star';
 export { addUnique } from './add-unique';
 export { copy } from './copy';
 export { delay } from './delay';
+export { distanceBetween } from './distance-between';
 export { equals } from './equals';
 export { getRandom } from './get-random';
 export { has } from './has';

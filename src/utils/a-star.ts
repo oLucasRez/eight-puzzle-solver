@@ -1,6 +1,5 @@
 // -------------------------------------------------------------------< classes
-import { Dict } from '../classes';
-import { Heap } from '../classes/heap';
+import { Dict, Heap } from '../classes';
 // ---------------------------------------------------------------------< utils
 import { equals, has } from '../utils';
 // -----------------------------------------------------------------< constants
@@ -57,16 +56,16 @@ export async function aStar<NodeType>(
   const fullCost: Dict<NodeType, number> = new Dict<NodeType, number>();
   fullCost.set(start, await heuristicCost(start, goal));
 
-  let openSet = new Heap<NodeType>(
+  const frontier = new Heap<NodeType>(
     (me, over) => fullCost.get(me, infinity) < fullCost.get(over, infinity)
   );
-  openSet.push(start);
+  frontier.push(start);
 
   let count = 0;
-  while (openSet.array.length) {
+  while (frontier.array.length) {
     if (count++ > 3000) throw new Error('Timeout');
 
-    const current = openSet.pop();
+    const current = frontier.pop();
 
     if (!current) throw new Error('Nó impossível de alcançar.');
     if (equals(current, goal)) return buildPath(cameFrom, current);
@@ -87,7 +86,7 @@ export async function aStar<NodeType>(
           neighborStartCost + (await heuristicCost(neighbor, goal))
         );
 
-        !has(openSet.array, neighbor) && openSet.push(neighbor);
+        !has(frontier.array, neighbor) && frontier.push(neighbor);
       }
     }
   }
