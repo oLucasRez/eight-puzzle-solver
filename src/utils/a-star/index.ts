@@ -1,9 +1,11 @@
 // -------------------------------------------------------------------< classes
-import { Dict, Heap } from '../classes';
+import { Dict, Heap } from '../../classes';
 // ---------------------------------------------------------------------< utils
-import { equals, has } from '../utils';
+import { equals, has } from '../../utils';
 // -----------------------------------------------------------------< constants
-import { infinity } from '../constants';
+import { infinity } from '../../constants';
+// ---------------------------------------------------------------------< types
+import { Neighbors, HeuristicCost, EdgeWeight } from './types';
 // ============================================================================
 function buildPath<NodeType>(
   cameFrom: Dict<NodeType, NodeType>,
@@ -26,18 +28,6 @@ function buildPath<NodeType>(
 
   return path.filter((value) => value !== null);
 }
-
-type MaybePromise<Type> = Type | Promise<Type>;
-
-type Neighbors<NodeType> = (node: NodeType) => MaybePromise<NodeType[]>;
-type HeuristicCost<NodeType> = (
-  current: NodeType,
-  goal: NodeType
-) => MaybePromise<number>;
-type EdgeWeight<NodeType> = (
-  from: NodeType,
-  to: NodeType
-) => MaybePromise<number>;
 
 const defaultCost = () => 1;
 
@@ -68,6 +58,7 @@ export async function aStar<NodeType>(
     const current = frontier.pop();
 
     if (!current) throw new Error('Nó impossível de alcançar.');
+
     if (equals(current, goal)) return buildPath(cameFrom, current);
 
     for (const neighbor of await neighbors(current)) {

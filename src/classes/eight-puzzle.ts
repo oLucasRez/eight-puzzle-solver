@@ -20,6 +20,8 @@ export class EightPuzzle<ValueType> {
   private width: number;
   private height: number;
 
+  private readonly depth = 18;
+
   public constructor(
     private readonly goal: Snapshot<ValueType>,
     private readonly empty: ValueType
@@ -38,7 +40,7 @@ export class EightPuzzle<ValueType> {
     let cameFrom = snapshot;
     let current = snapshot;
 
-    for (let i = 0; i < 22; i++) {
+    for (let i = 0; i < this.depth; i++) {
       const neighbors = this.neighbors(current);
       remove(neighbors, cameFrom);
       cameFrom = current;
@@ -57,6 +59,7 @@ export class EightPuzzle<ValueType> {
       (node) => this.neighbors(node),
       (current, goal) => this.heuristicCost(current, goal)
     );
+
     let i = 1;
     for (const snapshot of path) {
       console.clear();
@@ -161,6 +164,8 @@ export class EightPuzzle<ValueType> {
     const four = (this.height - 2) * (this.width - 2);
     const breadth = (2 * two + 3 * three + 4 * four) / (two + three + four);
 
-    console.log(breadth);
+    const cost = Math.pow(breadth, this.depth);
+
+    return cost;
   }
 }
